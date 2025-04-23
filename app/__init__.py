@@ -4,9 +4,9 @@ import os
 
 def get_connection():
     return psycopg2.connect(
-        dbname=os.getenv("DB_NAME"),
-        user=os.getenv("DB_USER"),
-        password=os.getenv("DB_PASSWORD"),
-        host=os.getenv("DB_HOST"),
-        port=os.getenv("DB_PORT", "5432")  # 5432 هو المنفذ الافتراضي
+        dbname="mydb",
+        user="myuser",
+        password="mypassword",
+        host="postgres-service",  # هذا اسم الخدمة في docker-compose
+        port="5432"
     )

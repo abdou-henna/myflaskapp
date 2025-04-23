@@ -1,9 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: flask-app
+  name: flask-web
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: flask
@@ -12,30 +12,19 @@ spec:
       labels:
         app: flask
     spec:
-      initContainers:
-      - name: init-db
-        image: abdouhenna/flask-app:latest
-        command: ["python", "/app/init_db.py"]
-        env:
-        - name: DB_HOST
-          value: "db"  # لازم يكون نفس اسم service تبع قاعدة البيانات
-        - name: DB_NAME
-          value: "yourdbname"
-        - name: DB_USER
-          value: "yourdbuser"
-        - name: DB_PASSWORD
-          value: "yourdbpassword"
       containers:
-      - name: flask-container
-        image: abdouhenna/flask-app:latest
-        ports:
-        - containerPort: 5000
-        env:
-        - name: DB_HOST
-          value: "db"
-        - name: DB_NAME
-          value: "yourdbname"
-        - name: DB_USER
-          value: "yourdbuser"
-        - name: DB_PASSWORD
-          value: "yourdbpassword"
+        - name: flask-container
+          image: abdouhenna/flask-app:latest  # 🔁 غيّر هذا
+          ports:
+            - containerPort: 5000
+          env:
+            - name: DB_NAME
+              value: "mydb"
+            - name: DB_USER
+              value: "myuser"
+            - name: DB_PASSWORD
+              value: "mypassword"
+            - name: DB_HOST
+              value: "postgres-service"
+            - name: DB_PORT
+              value: "5432"
