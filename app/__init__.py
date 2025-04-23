@@ -7,6 +7,6 @@ def get_connection():
         dbname="mydb",
         user="myuser",
         password="mypassword",
-        host="postgres-service",  # هذا اسم الخدمة في docker-compose
+        host="db",  # هذا اسم الخدمة في docker-compose
         port="5432"
     )
